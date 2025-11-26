@@ -20,7 +20,6 @@ class RankingScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFFFF4EC), // cor de fundo suave
-      bottomNavigationBar: _BottomBar(), // mesma barra do seu app
       body: SafeArea(
         child: Column(
           children: [
@@ -69,7 +68,7 @@ class RankingScreen extends StatelessWidget {
                   return Container(
                     margin: const EdgeInsets.only(bottom: 8),
                     decoration: BoxDecoration(
-                      // color: //item['cor'],
+                      color: item['cor'] as Color?,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: ListTile(
@@ -91,7 +90,6 @@ class RankingScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Image.asset('lib/images/rating_star.png'),
-                          // const Icon(Icons.star, color: Colors.amber),
                           const SizedBox(width: 4),
                           Text(
                             '${item['pontos']}',
@@ -153,44 +151,3 @@ class _StatCard extends StatelessWidget {
   }
 }
 
-class _BottomBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFF9999FF),
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const [
-          _BottomIcon(icon: Icons.menu, label: 'Mais'),
-          _BottomIcon(icon: Icons.checklist, label: 'Tarefas'),
-          _BottomIcon(icon: Icons.calendar_today, label: 'Calendário'),
-          _BottomIcon(icon: Icons.person, label: 'Perfil'),
-          _BottomIcon(icon: Icons.emoji_events, label: 'Ranking'),
-        ],
-      ),
-    );
-  }
-}
-
-class _BottomIcon extends StatelessWidget {
-  final IconData icon;
-  final String label;
-
-  const _BottomIcon({required this.icon, required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: Colors.yellow, size: 26),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: const TextStyle(color: Colors.yellow, fontSize: 12),
-        ),
-      ],
-    );
-  }
-}

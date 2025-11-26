@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:taskscore/components/custom_bottom_bar.dart';
 import 'package:taskscore/components/custom_top_bar.dart';
 import 'package:taskscore/pages/plan_semester.dart';
 
@@ -10,7 +9,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomBottomBar(),
+      // bottomNavigationBar: CustomBottomBar(),
       // appBar: PreferredSize(preferredSize: Size.fromHeight(100), child: WeekTopBar()),
       backgroundColor: const Color(0xFFFFF1E6),
       body:Column(

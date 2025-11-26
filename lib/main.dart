@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskscore/pages/home.dart';
+import 'package:taskscore/utils/main_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         
       //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       // ),
-      home: HomeScreen(),
+      home: MainController() //HomeScreen(),
     );
   }
 }
