@@ -13,11 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Taskscore',
-      // theme: ThemeData(
-        
-      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      // ),
-      home: MainController() //HomeScreen(),
+      home: MainController()
     );
   }
 }

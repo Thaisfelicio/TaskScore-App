@@ -12,6 +12,96 @@ class _PlanSemesterScreenState extends State<PlanSemesterScreen> {
   DateTime focusedDay = DateTime.now();
   DateTime? selectedDay;
 
+  String repeatValue = "desligado";
+String timeValue = "personalizado";
+String reminderValue = "personalizado";
+String categoryValue = "pessoal";
+
+  Future<void> _selectCategory() async {
+  final options = ["estudos", "pessoal", "atividade física", "trabalho"];
+
+  final newValue = await showModalBottomSheet<String>(
+    context: context,
+    builder: (context) => ListView(
+      shrinkWrap: true,
+      children: options.map((op) => ListTile(
+        title: Text(op),
+        onTap: () => Navigator.pop(context, op),
+      )).toList(),
+    ),
+  );
+
+  if (newValue != null) {
+    setState(() => categoryValue = newValue);
+  }
+}
+
+Future<void> _selectReminder() async {
+  final options = [
+    "nenhum",
+    "10 min antes",
+    "1h antes",
+    "personalizado",
+  ];
+
+  final newValue = await showModalBottomSheet<String>(
+    context: context,
+    builder: (context) => ListView(
+      shrinkWrap: true,
+      children: options.map((op) => ListTile(
+        title: Text(op),
+        onTap: () => Navigator.pop(context, op),
+      )).toList(),
+    ),
+  );
+
+  if (newValue != null) {
+    setState(() => reminderValue = newValue);
+  }
+}
+
+Future<void> _selectTime() async {
+  final options = ["manhã", "tarde", "noite", "até 10h"];
+
+  final newValue = await showModalBottomSheet<String>(
+    context: context,
+    builder: (context) => ListView(
+      shrinkWrap: true,
+      children: options.map((op) {
+        return ListTile(
+          title: Text(op),
+          onTap: () => Navigator.pop(context, op),
+        );
+      }).toList(),
+    ),
+  );
+
+  if (newValue != null) {
+    setState(() => timeValue = newValue);
+  }
+}
+
+Future<void> _selectRepeat() async {
+  final options = ["desligado", "diário", "semanal", "mensal", "anual"];
+
+  final newValue = await showModalBottomSheet<String>(
+    context: context,
+    builder: (context) => ListView(
+      shrinkWrap: true,
+      children: options.map((op) {
+        return ListTile(
+          title: Text(op),
+          onTap: () => Navigator.pop(context, op),
+        );
+      }).toList(),
+    ),
+  );
+
+  if (newValue != null) {
+    setState(() => repeatValue = newValue);
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,12 +143,30 @@ class _PlanSemesterScreenState extends State<PlanSemesterScreen> {
             // Botões de opções
             Column(
               children: [
-                _OptionButton(label: 'Repetir', value: 'desligado', onTap: () {
-                  Navigator.pushNamed(context, '/repeat');
-                }),
-                _OptionButton(label: 'Tempo', value: 'até 10h'),
-                _OptionButton(label: 'Lembrete', value: 'personalizado'),
-                _OptionButton(label: 'Categoria', value: 'pessoal'),
+                 _OptionButton(
+      label: 'Repetir',
+      value: repeatValue,
+      icon: Icons.repeat,
+      onTap: _selectRepeat,
+    ),
+    _OptionButton(
+      label: 'Tempo',
+      value: timeValue,
+      icon: Icons.access_time,
+      onTap: _selectTime,
+    ),
+    _OptionButton(
+      label: 'Lembrete',
+      value: reminderValue,
+      icon: Icons.notifications,
+      onTap: _selectReminder,
+    ),
+    _OptionButton(
+      label: 'Categoria',
+      value: categoryValue,
+      icon: Icons.label,
+      onTap: _selectCategory,
+    ),
               ],
             ),
 
@@ -82,9 +190,15 @@ class _PlanSemesterScreenState extends State<PlanSemesterScreen> {
 class _OptionButton extends StatelessWidget {
   final String label;
   final String value;
+  final IconData icon;
   final VoidCallback? onTap;
 
-  const _OptionButton({required this.label, required this.value, this.onTap});
+  const _OptionButton({
+    required this.label,
+    required this.value,
+    required this.icon,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +215,7 @@ class _OptionButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(children: [
-              Icon(Icons.repeat, color: Colors.black),
+              Icon(icon, color: Colors.black),
               const SizedBox(width: 8),
               Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
             ]),
@@ -112,3 +226,5 @@ class _OptionButton extends StatelessWidget {
     );
   }
 }
+
+
